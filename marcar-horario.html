@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Marcar Horário - Barbearia Paiva</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #6a85b6, #bac8e0);
+            margin: 0;
+            color: #333;
+        }
+        header {
+            background-color: #1f2937;
+            color: #f3f4f6;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgb(0 0 0 / 0.25);
+        }
+        nav a {
+            color: #93c5fd;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 1rem;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #bfdbfe;
+        }
+        main {
+            max-width: 480px;
+            margin: 2rem auto 4rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgb(0 0 0 / 0.15);
+            padding: 1.5rem 2rem 2rem;
+        }
+        h1, h2 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #1e40af;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+            color: #334155;
+        }
+        input[type=text],
+        input[type=date],
+        input[type=time],
+        select {
+            width: 100%;
+            padding: 0.6rem;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            margin-top: 0.3rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        input[type=text]:focus,
+        input[type=date]:focus,
+        input[type=time]:focus,
+        select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 5px #3b82f6;
+        }
+        button.cta-btn {
+            margin-top: 1.8rem;
+            width: 100%;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button.cta-btn:hover {
+            background-color: #1d4ed8;
+        }
+        section#agendamentos-lista {
+            margin-top: 2rem;
+            border-top: 2px solid #cbd5e1;
+            padding-top: 1rem;
+        }
+        .agendamento-item {
+            background: #e0e7ff;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            padding: 0.9rem 1.2rem;
+            box-shadow: inset 0 0 8px rgb(71 85 105 / 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #1e293b;
+        }
+        .agendamento-info {
+            font-size: 0.95rem;
+        }
+        .btn-desmarcar {
+            background-color: #ef4444;
+            border: none;
+            color: white;
+            padding: 0.4rem 0.9rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.8rem;
+        }
+        .btn-desmarcar:hover {
+            background-color: #b91c1c;
+        }
+        .msg {
+            text-align: center;
+            font-weight: 600;
+            padding: 0.5rem 0;
+            margin-top: 0.8rem;
+            border-radius: 6px;
+        }
+        .msg.success {
+            color: #22c55e;
+            background-color: #dcfce7;
+            border: 1px solid #86efac;
+        }
+        .msg.error {
+            color: #ef4444;
+            background-color: #fee2e2;
+            border: 1px solid #fca5a5;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Marcar Horário - Barbearia Paiva</h1>
+    <nav>
+        <a href="index.html" class="nav-link" aria-label="Ir para Início">Início</a>
+    </nav>
+</header>
+<main>
+    <section id="marcar-horario" aria-label="Seção Marcar Horário">
+        <h2>Agende seu Horário</h2>
+        <form id="form-agendamento" aria-describedby="form-msg">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required autocomplete="off" />
+            <label for="data">Data:</label>
+            <input type="date" id="data" name="data" required />
+            <label for="hora">Hora:</label>
+            <select id="hora" name="hora" required>
+                <!-- As opções serão geradas dinamicamente via JavaScript -->
+            </select>
+            <label for="servico">Serviço:</label>
+            <select id="servico" name="servico" required>
+                <option value="corte">Corte de Cabelo</option>
+                <option value="barba">Barba</option>
+                <option value="coloracao">Coloração</option>
+                <option value="tratamento">Tratamento Capilar</option>
+            </select>
+            <label for="barbeiro">Barbeiro:</label>
+            <select id="barbeiro" name="barbeiro" required>
+                <option value="barbeiro1">Barbeiro 1</option>
+                <option value="barbeiro2">Barbeiro 2</option>
+                <option value="barbeiro3">Barbeiro 3</option>
+            </select>
+            <button type="submit" class="cta-btn">Agendar</button>
+            <div id="form-msg" role="alert" aria-live="assertive"></div>
+        </form>
+    </section>
+    
+
+    <section id="agendamentos-lista" aria-label="Lista de Agendamentos">
+        <h2>Agendamentos Atuais</h2>
+        <div id="lista-agendamentos"></div>
+        <p id="nenhum-agendamento" style="text-align:center; color:#64748b; font-style:italic; display:none;">
+            Nenhum agendamento encontrado.
+        </p>
+    </section>
+</main>
+<script src="marcar-horario.js"></script>
+</body>
+</html>
+
+
